@@ -1,0 +1,22 @@
+{
+  "name": "rsplithof/text-transformer",
+  "description": "Transform text with different strategies",
+  "keywords": ["text", "transformer"],
+  "homepage": "https://github.com/rsplithof/text-transformer",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Ramon Splithof",
+      "email": "ramon_splithof@hotmail.com"
+          }
+  ],
+  "require": {
+    "php": ">=7.0"
+  },
+  "target-dir": "TextTransformer",
+  "autoload": {
+    "classmap": [
+      "src/"
+    ]
+  }
+}
