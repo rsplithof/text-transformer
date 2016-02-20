@@ -15,8 +15,8 @@
   },
   "target-dir": "TextTransformer",
   "autoload": {
-    "classmap": [
-      "src/"
-    ]
+    "psr-4": {
+      "TextTransformer\\": "src/TextTransformer"
+    }
   }
 }

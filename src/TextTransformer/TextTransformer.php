@@ -1,11 +1,12 @@
 <?php
-namespace Rsplithof\TextTransformer;
+namespace TextTransformer;
 
-use Rsplithof\TextTransformer\Strategy\TransformStrategyInterface;
+use TextTransformer\Model\Text;
+use TextTransformer\Strategy\TransformStrategyInterface;
 
 /**
  * Class TextTransformer
- * @package Rsplithof\TextTransformer
+ * @package TextTransformer
  */
 class TextTransformer
 {
@@ -22,6 +23,9 @@ class TextTransformer
      */
     public function transform(string $text, TransformStrategyInterface $transformStrategy): string
     {
-        return $transformStrategy->transform($text);
+        $text = new Text($text);
+        $transformedText = $transformStrategy->transform($text);
+
+        return $transformedText->getText();
     }
 }
