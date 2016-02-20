@@ -1,7 +1,7 @@
 <?php
 namespace TextTransformer\Strategy;
 
-class WordRandomizer implements TransformStrategyInterface
+class ASCIIfy implements TransformStrategyInterface
 {
 
     function transform(string $text): string

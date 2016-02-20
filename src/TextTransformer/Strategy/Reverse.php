@@ -13,8 +13,16 @@ use TextTransformer\Model\Word;
  *
  * @package TextTransformer\Strategy
  */
-class SmallWordsReverse implements TransformStrategyInterface
+class Reverse implements TransformStrategyInterface
 {
+    const DEFAULT_MAX_CHARS = 3;
+
+    protected $maxCharsInWord;
+
+    public function __construct($maxCharsInWord = self::DEFAULT_MAX_CHARS)
+    {
+        $this->maxCharsInWord = $maxCharsInWord;
+    }
 
     /**
      * @param Text|string $text
@@ -26,7 +34,7 @@ class SmallWordsReverse implements TransformStrategyInterface
         foreach($text->getWords() as &$word) {
 
             # Catch words smaller than 4 and not numeric
-            if (!$word->isNumeric() && count($word->getChars()) <= 3) {
+            if (!$word->isNumeric() && count($word->getChars()) <= $this->maxCharsInWord) {
 
                 # Find all capitals and lower string
                 $word->findCapitalPositions();
