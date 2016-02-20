@@ -1,5 +1,5 @@
 <?php
-namespace Rsplithof\TextTransformer\Strategy;
+namespace TextTransformer\Strategy;
 
 class WordRandomizer implements TransformStrategyInterface
 {
