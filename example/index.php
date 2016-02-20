@@ -1,7 +1,8 @@
 <?php
 use TextTransformer\TextTransformer;
 use TextTransformer\Strategy\ {
-    SmallWordsReverse
+    Reverse,
+    Swap
 };
 
 require '../vendor/autoload.php';
@@ -13,7 +14,7 @@ echo $text;
 
 echo '<h2>Soort 1:</h2>';
 $textTransformer = new TextTransformer();
-echo $textTransformer->transform($text, new SmallWordsReverse());
+echo $textTransformer->transform($text, new Reverse());
 
-/*echo '<h2>Soort 2:</h2>';
-echo $textTransformer->transform($text, new ThirdWordSwapper());
+echo '<h2>Soort 2:</h2>';
+echo $textTransformer->transform($text, new Swap());
