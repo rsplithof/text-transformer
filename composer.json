@@ -13,6 +13,9 @@
   "require": {
     "php": ">=7.0"
   },
+  "require-dev": {
+    "phpunit/phpunit": "^5.0"
+  },
   "target-dir": "TextTransformer",
   "autoload": {
     "psr-4": {

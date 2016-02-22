@@ -1,2 +1,3 @@
 # text-transformer
-Transform text with different strategies 
+Transform text with different strategies
+
