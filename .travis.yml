@@ -9,4 +9,3 @@ before_script:
 
 script:
   - ./vendor/bin/phpunit ./tests
-  - ./vendor/bin/phpcs ./src/ --standard=PSR2
