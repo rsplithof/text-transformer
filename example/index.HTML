@@ -1,0 +1,66 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Text transformer</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="assets/vendor/semantic/dist/semantic.min.css">
+
+    <script src="assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="assets/vendor/semantic/dist/semantic.min.js"></script>
+</head>
+<body>
+<div class="ui grid padded">
+    <div class="sixteen wide column">
+        <h1 class="header">Text Transformer</h1>
+        <form class="ui form" name="transform-form">
+
+            <div class="field">
+                <label>Strategy</label>
+                <select name="strategy" class="ui fluid dropdown">
+                    <option value="Reverse">Reverse</option>
+                    <option value="Swap">Swap</option>
+                    <option value="Shuffle">Shuffle</option>
+                    <option value="ASCII">ASCII</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label>Text</label>
+                <textarea name="text"></textarea>
+            </div>
+
+            <button class="ui fluid button">Transform!</button>
+
+
+            <div class="ui message black">
+                <p>Transformed text will be displayed here!</p>
+            </div>
+
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('select.dropdown').dropdown();
+
+        $('form[name="transform-form"]').submit(function (e) {
+            e.preventDefault();
+            var $this = $(this);
+            var formData = $this.serializeArray();
+
+            var button = $this.find('.button');
+            button.addClass('loading').attr('disabled', 'disabled');
+
+            $.post('ajax/transform-text.php', formData, function (result) {
+                $('.message').html('<p>' + result + '</p>');
+                button.removeClass('loading').removeAttr('disabled');
+            });
+        })
+    })
+</script>
+</body>
+</html>

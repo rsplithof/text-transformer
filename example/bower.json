@@ -1,0 +1,21 @@
+{
+  "name": "texttransformer example",
+  "homepage": "https://github.com/rsplithof/text-transformer",
+  "authors": [
+    "Ramon <ramon_splithof@hotmail.com>"
+  ],
+  "description": "Transform text by a strategy",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "semantic": "semantic-ui#^2.1.8"
+  }
+}
