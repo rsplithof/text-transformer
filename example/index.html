@@ -13,11 +13,10 @@
     <script src="assets/vendor/semantic/dist/semantic.min.js"></script>
 </head>
 <body>
-<div class="ui grid padded">
-    <div class="sixteen wide column">
+<div class="ui grid padded stackable">
+    <div class="eight wide column">
         <h1 class="header">Text Transformer</h1>
         <form class="ui form" name="transform-form">
-
             <div class="field">
                 <label>Strategy</label>
                 <select name="strategy" class="ui fluid dropdown">
@@ -34,13 +33,12 @@
             </div>
 
             <button class="ui fluid button">Transform!</button>
-
-
-            <div class="ui message black">
-                <p>Transformed text will be displayed here!</p>
-            </div>
-
         </form>
+    </div>
+    <div class="eight wide column">
+        <div class="ui message black">
+            <p>Transformed text will be displayed here!</p>
+        </div>
     </div>
 </div>
 <script type="text/javascript">

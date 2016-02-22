@@ -30,12 +30,12 @@ class ASCII implements TransformStrategyInterface
                 continue;
             }
 
-            # Greater then predecessor
+            # Smaller then predecessor
             if ($asciiChars[$key] < $asciiChars[$key - 1]) {
                 $nextAsciiChar = $this->uni_chr($asciiChars[$key] + 1);
                 $chars[$key] = $nextAsciiChar;
             }
-            # Smaller then predecessor
+            # Greater then predecessor
             if ($asciiChars[$key] > $asciiChars[$key - 1]) {
                 $nextAsciiChar = $this->uni_chr($asciiChars[$key] + -1);
                 $chars[$key] = $nextAsciiChar;

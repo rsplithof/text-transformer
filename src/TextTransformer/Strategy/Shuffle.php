@@ -67,9 +67,9 @@ class Shuffle implements TransformStrategyInterface
     }
 
     /**
-     * Shuffle an array in this case of characters. This function does not work when all chars are the same, because
-     * that would cause an infinite loop. Sometimes shuffle does not alter the array, so keep shuffling until the output
-     * is different from the input.
+     * Shuffle an array, in this case of characters. This function does not work when all chars are the same, because
+     * that would trigger an infinite loop. Sometimes shuffle does not alter the array, so keep shuffling until the
+     * output is different from the input.
      * @param array $chars
      * @return array
      */
