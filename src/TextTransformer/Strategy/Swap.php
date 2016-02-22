@@ -36,10 +36,12 @@ class Swap implements TransformStrategyInterface
     /**
      * Transforms given text to an format that satisfies the description of this class
      * @param Text $text
-     * @return Text
+     * @return string
      */
-    public function transform(Text $text): Text
+    public function transform(Text $text): string
     {
+        $text->setWordsByText($text->getText());
+
         /** @var Word $word */
         $words = $text->getWords();
         foreach ($words as $key => &$word) {
@@ -55,16 +57,20 @@ class Swap implements TransformStrategyInterface
                 /** @var Word $prevWord */
                 $prevWord = $text->getWords()[$key - 1];
 
-                # Check if prev word ends with punctuation
-                $prevWordPunctuations = $prevWord->findPunctuation();
-                if ($prevWordPunctuations['start'] || $prevWordPunctuations['end']) {
-                    $this->swapPunctuation($prevWord, $word, $prevWordPunctuations);
+                # When punctuation is found, swap it!
+                if(count($prevWord->getChars()) > 1) {
+                    $prevWordPunctuations = $prevWord->findPunctuations();
+                    if (count($prevWordPunctuations[0])) {
+                        $this->swapPunctuations($prevWord, $word);
+                    }
                 }
 
-                # Check if current word ends with punctuation
-                $wordPunctuations = $word->findPunctuation();
-                if ($wordPunctuations['start'] || $wordPunctuations['end']) {
-                    $this->swapPunctuation($word, $prevWord, $wordPunctuations);
+                # When punctuation is found, swap it!
+                if(count($word->getChars()) > 1) {
+                    $wordPunctuations = $word->findPunctuations();
+                    if (count($wordPunctuations[0])) {
+                        $this->swapPunctuations($word, $prevWord);
+                    }
                 }
 
                 # Find all capitals and lower string
@@ -85,29 +91,32 @@ class Swap implements TransformStrategyInterface
             }
         }
         $text->setWords($words);
-        return $text;
+        return $text->buildTextFromWords();
     }
 
     /**
      * Swaps punctuation on beginning or end of words to the target word.
      * @param Word $word
      * @param Word $targetWord
-     * @param array $punctuation containing an 'start' en 'end' key pointing to the position
      */
-    private function swapPunctuation(Word $word, Word $targetWord, array $punctuation)
+    private function swapPunctuations(Word $word, Word $targetWord)
     {
+        $punctuations = $word->getPunctuation();
         $wordChars = $word->getChars();
         $targetWordChars = $targetWord->getChars();
 
-        # If word start with punctuation, swap it to the end of the target word
-        if ($punctuation['start']) {
-            array_unshift($targetWordChars, reset($wordChars));
-            $word->removeFirstChar();
-        }
-        # If word ends with punctuation, swap it to the fron of the target word
-        if ($punctuation['end']) {
-            array_push($targetWordChars, end($wordChars));
-            $word->removeLastChar();
+        foreach($punctuations[0] as $punctuation) {
+            $position = $punctuation[1];
+
+            if($wordChars[$position] === reset($wordChars)) {
+                array_unshift($targetWordChars, reset($wordChars));
+                $word->removeFirstChar();
+            }
+
+            if($wordChars[$position] === end($wordChars)) {
+                array_push($targetWordChars, end($wordChars));
+                $word->removeLastChar();
+            }
         }
 
         $targetWord->setChars($targetWordChars);

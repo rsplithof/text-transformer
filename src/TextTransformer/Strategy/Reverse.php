@@ -15,10 +15,20 @@ use TextTransformer\Model\Word;
  */
 class Reverse implements TransformStrategyInterface
 {
+    /**
+     *
+     */
     const DEFAULT_MAX_CHARS = 3;
 
+    /**
+     * @var int
+     */
     protected $maxCharsInWord;
 
+    /**
+     * Reverse constructor.
+     * @param int $maxCharsInWord
+     */
     public function __construct($maxCharsInWord = self::DEFAULT_MAX_CHARS)
     {
         $this->maxCharsInWord = $maxCharsInWord;
@@ -28,8 +38,10 @@ class Reverse implements TransformStrategyInterface
      * @param Text|string $text
      * @return Text|string
      */
-    public function transform(Text $text): text
+    public function transform(Text $text): string
     {
+        $text->setWordsByText($text->getText());
+
         /** @var Word $word */
         foreach($text->getWords() as &$word) {
 
@@ -49,6 +61,6 @@ class Reverse implements TransformStrategyInterface
                 $word->setCapitals();
             }
         }
-        return $text;
+        return $text->buildTextFromWords();
     }
 }

@@ -104,7 +104,7 @@ class Word
         }
 
         $word = $this->getWord();
-        if (is_numeric($word) || substr($word, 0, 1) === '€') {
+        if (is_numeric($word) || mb_substr($word, 0, 1) === '€') {
             return $this->isNumeric = true;
         }
         return $this->isNumeric = false;
@@ -145,13 +145,22 @@ class Word
     }
 
     /**
+     * @return array|null
+     */
+    public function getPunctuation()
+    {
+        return $this->punctuation;
+    }
+
+
+    /**
      * @return array
      */
-    public function findPunctuation(): array
+    public function findPunctuations(): array
     {
         if ($this->punctuation === null) {
-            $this->punctuation['start'] = preg_match("/[.!?,;:)(]/", reset($this->chars));
-            $this->punctuation['end'] = preg_match("/[.!?,;:)(]/", end($this->chars));
+            preg_match_all("/[[:punct:]]/", $this->getWord(), $this->punctuation, PREG_OFFSET_CAPTURE);
+
         }
         return $this->punctuation;
     }

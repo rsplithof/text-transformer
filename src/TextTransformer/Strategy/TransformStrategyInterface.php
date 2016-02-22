@@ -3,7 +3,15 @@ namespace TextTransformer\Strategy;
 
 use TextTransformer\Model\Text;
 
+/**
+ * Interface TransformStrategyInterface
+ * @package TextTransformer\Strategy
+ */
 interface TransformStrategyInterface
 {
-    function transform(Text $text): Text;
+    /**
+     * @param Text $text
+     * @return string
+     */
+    function transform(Text $text): string;
 }
