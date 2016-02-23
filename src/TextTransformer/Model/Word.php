@@ -1,10 +1,10 @@
 <?php
 namespace TextTransformer\Model;
 
-
 /**
- * This class is representing an Word and provides handy functions to manipulate itself.
  * Class Word
+ * This class is representing a word and provides handy functions to manipulate itself.
+ *
  * @package TextTransformer\Model
  */
 class Word
@@ -31,7 +31,7 @@ class Word
      * has 'start' and 'end' key with boolean value in case the word starts or end with punctuation.
      * @var null|array
      */
-    protected $punctuation = null;
+    protected $punctuations = null;
 
     /**
      * Word constructor.
@@ -59,6 +59,7 @@ class Word
     }
 
     /**
+     * Set chars by a given word string.
      * @param string $word
      */
     protected function setCharsByWord(string $word)
@@ -75,6 +76,7 @@ class Word
     }
 
     /**
+     * Reverse all characters.
      * @return array
      */
     public function reverse(): array
@@ -84,6 +86,7 @@ class Word
     }
 
     /**
+     * Lower all characters.
      * @return Word
      */
     public function toLowerCase()
@@ -94,7 +97,7 @@ class Word
     }
 
     /**
-     * Check if the word is numeric, includes amounts of money for euro's
+     * Check if the word is numeric, including amounts of money for euro's.
      * @return bool
      */
     public function isNumeric(): bool
@@ -111,6 +114,7 @@ class Word
     }
 
     /**
+     * Find all capitals in word.
      * @return array
      */
     public function findCapitalPositions(): array
@@ -124,6 +128,7 @@ class Word
     }
 
     /**
+     * Set all capitals by capitalPositions or given positions.
      * @param array|null $positions
      */
     public function setCapitals(array $positions = null)
@@ -137,32 +142,79 @@ class Word
     }
 
     /**
-     * @param $punctuation
+     * @param $punctuations
      */
-    public function setPunctuation($punctuation)
+    public function setPunctuations($punctuations)
     {
-        $this->punctuation = $punctuation;
+        $this->punctuations = $punctuations;
     }
 
     /**
      * @return array|null
      */
-    public function getPunctuation()
+    public function getPunctuations()
     {
-        return $this->punctuation;
+        return $this->punctuations;
     }
 
 
     /**
+     * Find all punctuation and store them in $this->punctuations for later use.
      * @return array
      */
     public function findPunctuations(): array
     {
-        if ($this->punctuation === null) {
-            preg_match_all("/[[:punct:]]/", $this->getWord(), $this->punctuation, PREG_OFFSET_CAPTURE);
-
+        if ($this->punctuations === null) {
+            preg_match_all("/[[:punct:]]/", $this->getWord(), $this->punctuations, PREG_OFFSET_CAPTURE);
+            $this->punctuations[0] = array_reverse($this->punctuations[0]);
         }
-        return $this->punctuation;
+        return $this->punctuations;
+    }
+
+    /**
+     * Removes all punctuations from this word.
+     */
+    public function removePunctuations()
+    {
+        $word = $this->getWord();
+        $strippedWord = preg_replace("/[[:punct:]]/", '', $word);
+        $this->setCharsByWord($strippedWord);
+    }
+
+    /**
+     * Reset's stripped punctuations on the correct positions.
+     */
+    public function resetPunctuations()
+    {
+        if($this->punctuations !== null) {
+            foreach ($this->punctuations[0] as $punctuation) {
+                $char = $punctuation[0];
+                $position = $punctuation[1];
+
+                array_splice($this->chars, $position, 0, $char);
+            }
+        }
+    }
+
+    /**
+     * Shuffle an array, in this case of characters. This function does not work when all chars are the same, because
+     * that would trigger an infinite loop. Sometimes shuffle does not alter the array, so keep shuffling until the
+     * output is different from the input.
+     * @return array
+     */
+    public function shuffleChars(): array
+    {
+        if (count($this->chars) > 1  && count(array_unique($this->chars)) > 1) {
+            $shuffledChars = $this->chars;
+            while (true) {
+                shuffle($shuffledChars);
+                if ($shuffledChars !== $this->chars) {
+                    $this->chars = $shuffledChars;
+                    break;
+                }
+            }
+        }
+        return $this->chars;
     }
 
     /**
@@ -179,5 +231,23 @@ class Word
     public function removeFirstChar()
     {
         array_shift($this->chars);
+    }
+
+    /**
+     * Add character to the front of the word.
+     * @param $char
+     */
+    public function addCharToFront($char)
+    {
+        array_unshift($this->chars, $char);
+    }
+
+    /**
+     * Add character to the end of the word.
+     * @param $char
+     */
+    public function addCharToEnd($char)
+    {
+        array_push($this->chars, $char);
     }
 }

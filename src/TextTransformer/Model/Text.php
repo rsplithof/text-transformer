@@ -2,22 +2,28 @@
 namespace TextTransformer\Model;
 
 /**
- * Class Text representing a given text. Text contains word which can be manipulated.
+ * Class Text
+ *
+ * Representing a given text. Text contains words and characters which can be manipulated.
+ *
  * @package TextTransformer\Model
  */
 class Text
 {
     /**
+     * Text that is set when this class constructed.
      * @var
      */
     protected $text;
 
     /**
+     * All characters in this text.
      * @var array
      */
     protected $chars = [];
 
     /**
+     * Containing all words in this text.
      * @var array
      */
     protected $words = [];
@@ -80,7 +86,7 @@ class Text
     }
 
     /**
-     * Glue all words together to make a text
+     * Glue all words together to make a text.
      * @return string
      */
     public function buildTextFromWords(): string
@@ -116,6 +122,10 @@ class Text
         return $this->chars;
     }
 
+    /**
+     * Glue all chars together to make a text.
+     * @return string
+     */
     public function buildTextFromChars(): string
     {
         return implode('', $this->chars);
