@@ -2,5 +2,6 @@
 .idea
 
 # Dirs
-vendor
+build
 tests/coverage
+vendor
