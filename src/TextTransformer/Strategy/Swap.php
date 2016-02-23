@@ -15,12 +15,13 @@ use TextTransformer\Model\Word;
 class Swap implements TransformStrategyInterface
 {
     /**
-     * Default steps of skipped words
+     * Default steps of skipped words.
      */
     const DEFAULT_WORD_STEPS = 3;
 
     /**
-     * @var int Step number of words that are skipped in text
+     * Step number of words that are skipped in text.
+     * @var int
      */
     protected $wordSteps;
 
@@ -34,7 +35,7 @@ class Swap implements TransformStrategyInterface
     }
 
     /**
-     * Transforms given text to an format that satisfies the description of this class
+     * Function to transform text that satisfies the class description.
      * @param Text $text
      * @return string
      */
@@ -45,12 +46,10 @@ class Swap implements TransformStrategyInterface
         /** @var Word $word */
         $words = $text->getWords();
         foreach ($words as $key => &$word) {
-
             # Skip numeric words
             if ($word->isNumeric()) {
                 continue;
             }
-
             # Every X Steps do something :)
             if (($key + 1) % $this->wordSteps == 0) {
 
@@ -101,7 +100,7 @@ class Swap implements TransformStrategyInterface
      */
     private function swapPunctuations(Word $word, Word $targetWord)
     {
-        $punctuations = $word->getPunctuation();
+        $punctuations = $word->getPunctuations();
         $wordChars = $word->getChars();
         $targetWordChars = $targetWord->getChars();
 
@@ -118,7 +117,6 @@ class Swap implements TransformStrategyInterface
                 $word->removeLastChar();
             }
         }
-
         $targetWord->setChars($targetWordChars);
     }
 }

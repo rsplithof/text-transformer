@@ -4,6 +4,8 @@ namespace TextTransformer\Strategy;
 use TextTransformer\Model\Text;
 
 /**
+ * Class ASCII
+ *
  * Soort 4: In deze tekst willen we karakters vervangen op basis van zijn voorganger. Ieder karakter heeft een waarde in
  * de ASCII tabel. Is de waarde van zijn voorganger groter, vervang dan het karakter met het volgende karakter volgens
  * de ASCII tabel, is deze kleiner, vervang dan het karakter met het vorige karakter volgens de ASCII tabel. Is de
@@ -14,6 +16,7 @@ use TextTransformer\Model\Text;
 class ASCII implements TransformStrategyInterface
 {
     /**
+     * Function to transform text that satisfies the class description.
      * @param Text $text
      * @return string
      */
@@ -47,6 +50,7 @@ class ASCII implements TransformStrategyInterface
     }
 
     /**
+     * Get the ASCII value of a multibyte character.
      * @param $u
      * @return int
      */
@@ -59,6 +63,7 @@ class ASCII implements TransformStrategyInterface
     }
 
     /**
+     * Get character by an ASCII value.
      * @param $u
      * @return string
      */
