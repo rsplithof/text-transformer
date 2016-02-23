@@ -17,9 +17,9 @@ class Word
 
     /**
      * Defines if word is numeric or not.
-     * @var null|bool
+     * @var bool
      */
-    protected $isNumeric = null;
+    protected $isNumeric = false;
 
     /**
      * holds the positions of capitalized characters.
@@ -102,10 +102,6 @@ class Word
      */
     public function isNumeric(): bool
     {
-        if (!$this->isNumeric === null) {
-            return $this->isNumeric;
-        }
-
         $word = $this->getWord();
         if (is_numeric($word) || mb_substr($word, 0, 1) === '€') {
             return $this->isNumeric = true;
@@ -128,25 +124,13 @@ class Word
     }
 
     /**
-     * Set all capitals by capitalPositions or given positions.
-     * @param array|null $positions
+     * Set all capitals by capitalPositions
      */
-    public function setCapitals(array $positions = null)
+    public function setCapitals()
     {
-        if ($positions !== null) {
-            $this->capitalPositions = $positions;
-        }
         foreach ($this->capitalPositions as $capitalPosition) {
             $this->chars[$capitalPosition] = strtoupper($this->chars[$capitalPosition]);
         }
-    }
-
-    /**
-     * @param $punctuations
-     */
-    public function setPunctuations($punctuations)
-    {
-        $this->punctuations = $punctuations;
     }
 
     /**
@@ -165,7 +149,7 @@ class Word
     public function findPunctuations(): array
     {
         if ($this->punctuations === null) {
-            preg_match_all("/[[:punct:]]/", $this->getWord(), $this->punctuations, PREG_OFFSET_CAPTURE);
+            preg_match_all("/(*UTF8)[[:punct:]]/", $this->getWord(), $this->punctuations, PREG_OFFSET_CAPTURE);
             $this->punctuations[0] = array_reverse($this->punctuations[0]);
         }
         return $this->punctuations;

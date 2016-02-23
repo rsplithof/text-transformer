@@ -70,14 +70,6 @@ class Text
     }
 
     /**
-     * @return array
-     */
-    public function getChars(): array
-    {
-        return $this->chars;
-    }
-
-    /**
      * @param array $chars
      */
     public function setChars($chars)
