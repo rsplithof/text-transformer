@@ -218,7 +218,7 @@ class Word
     }
 
     /**
-     * Removes last character
+     * Removes last character.
      */
     public function removeLastChar()
     {
@@ -226,7 +226,7 @@ class Word
     }
 
     /**
-     * Removes first character
+     * Removes first character.
      */
     public function removeFirstChar()
     {

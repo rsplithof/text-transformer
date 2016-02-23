@@ -2,7 +2,13 @@
 <phpunit bootstrap="vendor/autoload.php" colors="true">
     <testsuites>
         <testsuite name="Text Transformer Test Suite">
-            <directory>./tests/TextTransformer</directory>
+            <directory>./tests/TextTransformer/</directory>
         </testsuite>
     </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory suffix=".php">./src/TextTransformer/</directory>
+        </whitelist>
+    </filter>
 </phpunit>

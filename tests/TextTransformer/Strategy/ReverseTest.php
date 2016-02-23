@@ -8,8 +8,8 @@ class ReverseTest extends \PHPUnit_Framework_TestCase
 
     public function testTransform()
     {
-        $textInput = 'Wij doen iets goed of wij doen het niet. Wij besparen niet op onze service, apparatuur en faciliteiten.';
-        $expectedText = 'Jiw doen iets goed fo jiw doen teh niet. Jiw besparen niet po onze service, apparatuur ne faciliteiten.';
+        $textInput = 'Wij doen iets goed of wij doen het niet. Wij besparen niet op onze service, apparatuur en faciliteiten. 100 (spécial)';
+        $expectedText = 'Jiw doen iets goed fo jiw doen teh niet. Jiw besparen niet po onze service, apparatuur ne faciliteiten. 100 (spécial)';
 
         $text = new Text($textInput);
         $asciiStrategy = new Reverse();
